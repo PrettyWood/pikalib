@@ -1,3 +1,5 @@
+See the `next` branch for Vue 3
+
 ### 🛠️ Build
 This package uses
 - [`node`](https://nodejs.org/en/) v14
