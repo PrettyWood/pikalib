@@ -1,0 +1,10 @@
+
+.pokemon {
+  font-size: 30px;
+}
+.pokemon--alive {
+  color: green;
+}
+.pokemon--dead {
+  color: darkred;
+}

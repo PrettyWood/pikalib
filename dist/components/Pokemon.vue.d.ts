@@ -2,11 +2,7 @@ export interface PokemonProps {
     name: string;
     hp: number;
 }
-declare const _default: import("vue").ComponentOptions<import("vue").default, import("@vue/composition-api").ShallowUnwrapRef<{
-    state: import("@vue/composition-api").ComputedRef<"alive" | "dead">;
-}> & {
-    [key: string]: unknown;
-}, {}, {}, {
+declare const _default: import("vue").DefineComponent<{
     name: {
         type: StringConstructor;
         required: true;
@@ -17,19 +13,11 @@ declare const _default: import("vue").ComponentOptions<import("vue").default, im
         validator: (hp: number) => boolean;
     };
 }, {
+    state: import("vue").ComputedRef<"alive" | "dead">;
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     name: string;
     hp: number;
-} & {}> & import("vue").VueConstructor<import("vue").default> & (new (...args: any[]) => import("@vue/composition-api").ComponentRenderProxy<{
-    name: string;
+} & {}>, {
     hp: number;
-} & {}, import("@vue/composition-api").ShallowUnwrapRef<{
-    state: import("@vue/composition-api").ComputedRef<"alive" | "dead">;
-}>, {
-    [key: string]: unknown;
-}, {}, {}, {
-    name: string;
-    hp: number;
-} & {}, {
-    hp: number;
-}, true>);
+}>;
 export default _default;
