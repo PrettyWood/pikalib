@@ -7,7 +7,7 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
-    "check": "vuedx-typecheck --no-pretty src",
+    "check": "vuedx-typecheck --no-pretty --vue src && tsc --noEmit",
     "dev": "vite",
     "lint": "eslint --ext .js,.ts,.vue,.json .",
     "lint-fix": "eslint --fix --ext .js,.ts,.vue,.json .",
@@ -25,7 +25,7 @@
     }
   },
   "lint-staged": {
-    "*.{ts,vue}": [
+    "*.{tsx?,vue}": [
       "npm check"
     ]
   },

@@ -27,6 +27,7 @@
     "types": ["node", "jest"],
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "tests/**/*.ts"],
+  "files": ["src/shims-tsx.d.ts", "src/shims-vue.d.ts"],
+  "include": ["src/**/*.tsx", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts"],
   "exclude": ["node_modules"]
 }
