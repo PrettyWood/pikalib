@@ -21,7 +21,6 @@ devDependencies:
   jest-transform-stub: 2.0.0
   lint-staged: 10.5.3
   rollup: 2.36.1
-  rollup-plugin-commonjs: 10.1.0_rollup@2.36.1
   rollup-plugin-css-porter: 1.0.2
   rollup-plugin-sass: 1.2.2
   rollup-plugin-terser: 5.3.1_rollup@2.36.1
@@ -7934,20 +7933,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==
-  /rollup-plugin-commonjs/10.1.0_rollup@2.36.1:
-    dependencies:
-      estree-walker: 0.6.1
-      is-reference: 1.2.1
-      magic-string: 0.25.7
-      resolve: 1.19.0
-      rollup: 2.36.1
-      rollup-pluginutils: 2.8.2
-    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-commonjs.
-    dev: true
-    peerDependencies:
-      rollup: '>=1.12.0'
-    resolution:
-      integrity: sha512-jlXbjZSQg8EIeAAvepNwhJj++qJWNJw1Cl0YnOqKtP5Djx+fFGkp3WRh+W0ASCaFG5w1jhmzDxgu3SJuVxPF4Q==
   /rollup-plugin-css-porter/1.0.2:
     dependencies:
       clean-css: 4.2.3
@@ -9603,7 +9588,6 @@ specifiers:
   jest-transform-stub: ^2.0.0
   lint-staged: ^10.5.3
   rollup: ^2.36.1
-  rollup-plugin-commonjs: ^10.1.0
   rollup-plugin-css-porter: ^1.0.2
   rollup-plugin-sass: ^1.2.2
   rollup-plugin-terser: ^5.1.2
