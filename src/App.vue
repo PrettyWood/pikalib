@@ -2,9 +2,13 @@
 import { defineComponent } from 'vue';
 
 import Pokemon from './components/Pokemon.vue';
+// import { Pokemon as Pokemon2 } from '../dist/pikalib.esm';
 
 export default defineComponent({
-  components: { Pokemon },
+  components: {
+    Pokemon,
+    // Pokemon2,
+  },
 })
 </script>
 
@@ -12,6 +16,7 @@ export default defineComponent({
   <div id="app">
     <h1>The app</h1>
     <Pokemon :name="'Pikachu'" />
+    <!-- <Pokemon2 :name="'Bulbi'" :hp="0" /> -->
   </div>
 </template>
 

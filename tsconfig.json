@@ -28,6 +28,6 @@
     "plugins": [{ "name": "@vuedx/typescript-plugin-vue" }],
   },
   "files": ["src/shims-vue.d.ts", "src/shims-tsx.d.ts"],
-  "include": ["src/**/*.tsx", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts"],
   "exclude": ["node_modules"]
 }
