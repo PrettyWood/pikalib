@@ -8,5 +8,5 @@ Vue.config.productionTip = false
 Vue.config.performance = process.env.NODE_ENV === 'development';
 
 new Vue({
-    render: (h) => h(App),
+  render: (h) => h(App),
 }).$mount('#app');
