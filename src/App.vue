@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import Pokemon from './components/Pokemon.vue';
+import Pokemon from './components/pokemon';
 // import { Pokemon as Pokemon2 } from '../dist/pikalib.esm';
 
 export default defineComponent({

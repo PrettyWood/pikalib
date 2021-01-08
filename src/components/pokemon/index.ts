@@ -1,7 +1,7 @@
 import Pokemon from './Pokemon.vue'
-import { App } from 'vue'
+// import { App } from 'vue'
 
-Pokemon.install = (Vue: App) => {
+Pokemon.install = (Vue: any) => {
   Vue.component(Pokemon.name, Pokemon)
 }
 
