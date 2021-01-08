@@ -6,7 +6,7 @@
   "module": "./dist/pikalib.esm.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && rollup -c",
+    "build": "rm -rf dist && rollup -c rollup.config.ts",
     "check": "pnpm run check:vue && pnpm run check:ts",
     "check:vue": "vuedx-typecheck --no-pretty --vue src",
     "check:ts": "tsc --noEmit",
