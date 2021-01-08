@@ -1,3 +1,1 @@
-import Pokemon from './components/Pokemon.vue';
-
-export { Pokemon };
+export { default as Pokemon } from './components/Pokemon.vue';
