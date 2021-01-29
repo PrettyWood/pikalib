@@ -1,30 +1,32 @@
 <script lang="ts">
-import { computed, defineComponent, PropType } from "@vue/composition-api"
+import { defineComponent, PropType } from "@vue/composition-api"
+
+import { Variables, SCOPE } from '../types'
 
 export default defineComponent({
   name: 'VariablesBucket',
   props: {
     scope: {
-      type: String,
+      type: String as PropType<SCOPE>,
       required: true,
     },
     variables: {
-      type: Object as PropType<Record<string, any>>,
-      default: () => ({}),
+      type: Object as PropType<Variables>,
+      default: (): Variables => ({}),
     }
   },
   computed: {
-    allVariables(): Record<string, any> {
+    allVariables(): Variables {
       return {
-        $tcVariables: {
-          ...this.$tcVariables as object,
-          [`${this.scope}`]: this.variables,
-        }
+        ...this.$tcVariables as Variables,
+        [`${this.scope}`]: this.$store.getters.$tcVariables[this.scope],
       }
     }
   },
   provide() {
-    return this.allVariables
+    return {
+      $tcVariables: this.allVariables
+    }
   },
   inject: {
     $tcVariables: {
