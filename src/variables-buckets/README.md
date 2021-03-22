@@ -1,21 +1,21 @@
 
 # Vue variables buckets
 
-A handfull renderless vue component to provide scoped bucket of variables.
+A handful render-less vue component to provide scoped bucket of variables.
 
 These variables can:
 
 - [x] depend on each other
-- [x] inherite from a parent bucket
+- [x] inherits from a parent bucket
 - [x] are scoped in there bucket
 - [x] handle error
-- [x] be asynchrone
+- [x] be asynchronous
 - [x] be set from a bucket to an other
 
 
 ## Variables dependencies
 
-Considere the following example:
+Consider the following example:
 
 ```vue
 <script>
@@ -36,7 +36,7 @@ In the example above, `MyComponent1` is provided by the object
 `$tcVariables` and the functions `$tcSet` and `$tcEmit`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
 
 ```js
-// in `MyComponent` scipts
+// in `MyComponent` scripts
 this.$tcSet({a:  'Hello', b(){ this.a + 'world'}})
 console.log(this.$tcVariables)
 // > { a:  'Hello', b: 'Hello world' }
@@ -50,7 +50,7 @@ console.log(this.$tcVariables)
 
 ## Variables inheritance
 
-Considere the following example:
+Consider the following example:
 
 ```vue
 <script>
@@ -115,7 +115,7 @@ mounted(){
 
 ## Variables are scoped
 
-Considere the following example:
+Consider the following example:
 
 ```vue
 <script>
@@ -165,8 +165,8 @@ mounted(){
 
 ### Making them communicate anyway
 
-You can make the two buckets communicate by making them inherite from a parent
-and emiting, new variables to the parents with `$tcEmit`
+You can make the two buckets communicate by making them inherit from a parent
+and emitting, new variables to the parents with `$tcEmit`
 
 ```vue
 <script>
