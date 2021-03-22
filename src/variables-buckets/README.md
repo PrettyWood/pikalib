@@ -10,7 +10,7 @@ These variables can:
 - [x] are scoped in there bucket
 - [x] handle error
 - [x] be asynchrone
-- [x] be set from a bucket to an other 
+- [x] be set from a bucket to an other
 
 
 ## Variables dependencies
@@ -79,7 +79,7 @@ In `MyParentComponent`:
 mounted(){
   this.$tcSet({ a: 'Hello', b(){ this.a + ' from MyParentComponent' } })
   console.log(this.$tcVariables)
-  // >{ a: 'Hello', b: 'Hello from MyParentComponent'}
+  // > { a: 'Hello', b: 'Hello from MyParentComponent'}
 }
 ```
 
@@ -89,16 +89,16 @@ mounted(){
 // mounted method of MyChildComponent:
 mounted(){
   console.log(this.$tcVariables)
-  // >{ a: 'Hello', b: 'Hello from MyParentComponent'}
+  // > { a: 'Hello', b: 'Hello from MyParentComponent'}
   this.$tcSet({ c(){ this.a + ' from MyChildComponent' } })
   console.log(this.$tcVariables)
-  // >{ a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent'}
+  // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent'}
 }
 ```
 
 Note that, variable `c` will not be available from the `MyParentComponent`.
 
-If you need to set a variable `d` from the `MyParentComponent`, you should use 
+If you need to set a variable `d` from the `MyParentComponent`, you should use
 `$tcEmit`:
 
 ```js
@@ -145,7 +145,7 @@ mounted(){
   // > {}
   this.$tcSet({ a: 'Hello', b(){ this.a + ' from MyComponent1' } })
   console.log(this.$tcVariables)
-  // >{ a: 'Hello', b: 'Hello from MyComponent1'}
+  // > { a: 'Hello', b: 'Hello from MyComponent1'}
 }
 ```
 
@@ -159,11 +159,11 @@ mounted(){
   // > {}
   this.$tcSet({ a: 'Hello', b(){ this.a + ' from MyComponent2' } })
   console.log(this.$tcVariables)
-  // >{ a: 'Hello', b: 'Hello from MyComponent2'}
+  // > { a: 'Hello', b: 'Hello from MyComponent2'}
 }
 ```
 
-### Make them communicate anyway
+### Making them communicate anyway
 
 You can make the two buckets communicate by making them inherite from a parent
 and emiting, new variables to the parents with `$tcEmit`
