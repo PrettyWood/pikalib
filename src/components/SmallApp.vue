@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from "@vue/composition-api"
-import { Variables } from '../variables-buckets/VariablesBucket';
 
 export default defineComponent({
   name: 'SmallApp',
@@ -8,7 +7,7 @@ export default defineComponent({
   inject: ['$tcVariables', '$tcSet'],
   // :poop:"trick to force ts to detect the property `$tcVariables`
   computed: {
-    $tcVariables(): Variables {
+    $tcVariables(): any {
       return this.$tcVariables
     },
   },
@@ -44,21 +43,15 @@ export default defineComponent({
 </script>
 <template>
   <div class="small-app">
-    SmallApp :: {{ name }}
-    <pre>{{ $tcVariables }}</pre>
+    SmallApp :: {{ name }} -- {{ $tcVariables['my-requester-smallApp-computed']}}
+    <br/>
+    {{ $tcVariables.asyncVarComputed }}
+    <br/>
     <select name="chanteurs" v-model="selected" @input="input" id="input">
       <option value="jjg">jjg</option>
       <option value="mika">mika</option>
       <option value="brassens">brassens</option>
     </select>
-
-    <div>
-
-      var name: <input v-model="varName"/>
-
-      <textarea v-model="newVarDef"/>
-      <button @click="addVar">Add Variable</button>
-    </div>
     <slot />
   </div>
 </template>

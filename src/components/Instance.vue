@@ -1,18 +1,21 @@
 <script lang="ts">
-import { computed, defineComponent } from "@vue/composition-api"
-// import { TcVariables } from '../variables-buckets/VariablesBucket';
-
-import { Variables } from '../variables-buckets/VariablesBucket';
+import { defineComponent } from "@vue/composition-api"
+import Modal from './Modal.vue';
+import VariablesBucketVisualizer from '../variables-buckets/VariablesBucketVisualizer.vue';
 
 export default defineComponent({
   name: 'Instance',
+  components: {Modal, VariablesBucketVisualizer},
   props: ['name'],
   inject: ['$tcVariables', '$tcSet'],
   // :poop: trick to force ts to detect the property `$tcVariables`
   computed: {
-    $tcVariables(): Variables {
+    $tcVariables(): any {
       return this.$tcVariables
     }
+  },
+  data():{displayState: boolean} {
+    return {displayState: false}
   },
   mounted(){
     (this as any).$tcSet({
@@ -31,7 +34,7 @@ export default defineComponent({
       },
       'year'() { return this.today.getYear() },
       'month'() { return this.today.getMonth() },
-      'day'() { return this.today.getDay() },
+      'day'() { return this.today.toISOString().slice(0, 10) },
       'this-fail'() { return this.noExistingVar.plop },
     })
   },
@@ -39,8 +42,16 @@ export default defineComponent({
 </script>
 <template>
   <div class="instance">
-    Instance :: {{ name }}
-    <pre>{{ $tcVariables }}</pre>
+    <button @click="displayState=true">Display vars</button>
+    <br/>
+    <br/>
+    <Modal v-if="displayState" @closed="displayState=false">
+      <VariablesBucketVisualizer />
+    </Modal>
+    Instance :: {{ name }} -- Day: {{ $tcVariables.day }}
+    <br/>
+    Async var: {{ $tcVariables.asyncVar }}
+    <br/>
     <slot />
   </div>
 </template>
