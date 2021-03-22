@@ -74,9 +74,7 @@ export default defineComponent({
       default: {} as Variables,
     },
     $tcSet:{
-      default: () => {
-        console.log('plop')
-      }
+      default: () => {}
     }
   },
   render(): VNode {
