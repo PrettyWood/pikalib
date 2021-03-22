@@ -1,6 +1,5 @@
-import { defineComponent, PropType } from "@vue/composition-api"
-import Vue from "vue";
-import { VNode } from "vue/types/umd"
+import { defineComponent } from "@vue/composition-api"
+import Vue, { VNode } from "vue";
 
 export type Variables = Record<string, any>;
 
@@ -73,7 +72,7 @@ export default defineComponent({
     $tcVariables: {
       default: {} as Variables,
     },
-    $tcSet:{
+    $tcSet: {
       default: () => {}
     }
   },
