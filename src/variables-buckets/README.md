@@ -9,7 +9,7 @@ These variables can:
 - [x] inherite from a parent bucket
 - [x] are scoped in there bucket
 - [x] handle error
-- [] be asynchrone
+- [x] be asynchrone
 - [x] be set from a bucket to an other 
 
 

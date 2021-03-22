@@ -34,7 +34,19 @@ export default defineComponent({
       }
       for(const k of Object.keys(allArgs)){
         try {
-          Vue.set(this.tcVariables, k, temp[k]);
+          // QUESTION: Is the variables asynchone ?
+          if(['Promise', 'AsyncFunction'].includes(temp[k].constructor.name)){
+            // YES: Set 'loading...' as value
+            Vue.set(this.tcVariables, k, 'loading...');
+            // We do not want to make not asynchrone variables await, so we use the `then` method
+            temp[k].then((res: any)=>{
+              // And when it is finished, set the result
+              Vue.set(this.tcVariables, k, res);
+            })
+          } else {
+            // NO: simply set the value into the object:
+            Vue.set(this.tcVariables, k, temp[k]);
+          }
         } catch(e){
           Vue.set(this.tcVariables, k, `Error :: ${e.message}`);
         }

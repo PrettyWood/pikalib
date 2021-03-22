@@ -18,6 +18,17 @@ export default defineComponent({
     (this as any).$tcSet({
       instanceName: this.name,
       'today': new Date(),
+      async asyncVar() { 
+        function resolveAfter2Seconds() {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve('a');
+            }, 2000);
+          });
+        }
+        const a = await resolveAfter2Seconds();
+        return 'resolved async function'
+      },
       'year'() { return this.today.getYear() },
       'month'() { return this.today.getMonth() },
       'day'() { return this.today.getDay() },

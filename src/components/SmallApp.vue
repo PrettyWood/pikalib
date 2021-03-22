@@ -18,6 +18,9 @@ export default defineComponent({
       'my-requester-smallApp': 'jjg',
       'my-requester-smallApp-computed'() {
         return `smallApp requester value: ${this['my-requester-smallApp']}`
+      },
+      async asyncVarComputed(){
+        return `computed from :: ${await this.asyncVar}`
       }
     })
   },
