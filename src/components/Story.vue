@@ -5,7 +5,7 @@ import {Variables} from '../variables-buckets/VariablesBucket';
 export default defineComponent({
   name: 'Story',
   props: ['id'],
-  inject: ['$tcVariables', '$tcSet'],
+  inject: ['$tcVariables', '$tcSet', '$tcEmit'],
   // :poop:"trick to force ts to detect the property `$tcVariables`
   computed: {
     $tcVariables(): Variables {
@@ -13,6 +13,9 @@ export default defineComponent({
     },
     $tcSet(): any {
       return this.$tcSet
+    },
+    $tcEmit(): any{
+      return this.$tcEmit
     }
   },
   mounted(){
@@ -55,6 +58,12 @@ export default defineComponent({
       <option value="limousin">limousin</option>
     </select>
 
+    <span 
+      :class="{ hovered: $tcVariables.hovered }" 
+      @mouseover="$tcEmit({'hovered': true})" 
+      @mouseout="$tcEmit({'hovered': false})">
+      Hover me ! 
+    </span>
     <br>
     <div>
 
@@ -73,5 +82,9 @@ export default defineComponent({
   border: 1px solid black;
   margin: 10px;
   padding: 10px;
+}
+
+.hovered {
+  font-weight: bold;
 }
 </style>

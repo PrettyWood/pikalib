@@ -10,7 +10,7 @@ These variables can:
 - [x] are scoped in there bucket
 - [x] handle error
 - [] be asynchrone
-- [] be set from a bucket to an other 
+- [x] be set from a bucket to an other 
 
 
 ## Variables dependencies
@@ -33,7 +33,7 @@ import VariablesBucket from './variables-buckets/VariablesBucket';
 ```
 
 In the example above, `MyComponent1` is provided by the object
-`$tcVariables` and the function `$tcSet`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
+`$tcVariables` and the functions `$tcSet` and `$tcEmit`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
 
 ```js
 // in `MyComponent` scipts
@@ -41,6 +41,8 @@ this.$tcSet({a:  'Hello', b(){ this.a + 'world'}})
 console.log(this.$tcVariables)
 // > { a:  'Hello', b: 'Hello world' }
 ```
+
+`$tcEmit` is the `$tcSet` function of the parent buckets. This allows you to set variables of a bucket from it's child. Note that you cannot set from a grand-child.
 
 - **These variables can be computed of each other, setting functions.**
 - **`$tcVariables` is reactive.**
@@ -96,8 +98,22 @@ mounted(){
 
 Note that, variable `c` will not be available from the `MyParentComponent`.
 
+If you need to set a variable `d` from the `MyParentComponent`, you should use 
+`$tcEmit`:
 
-## Variables scoped
+```js
+// mounted method of MyChildComponent:
+mounted(){
+  console.log(this.$tcVariables)
+  // >{ a: 'Hello', b: 'Hello from MyParentComponent'}
+  this.$tcSet({ c(){ this.a + ' from MyChildComponent' } })
+  this.$tcEmit({ d(){ 'Hello from MyParentComponent' } })
+  console.log(this.$tcVariables)
+  // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent', d: 'Hello from MyParentComponent'}
+}
+```
+
+## Variables are scoped
 
 Considere the following example:
 
@@ -147,4 +163,58 @@ mounted(){
 }
 ```
 
+### Make them communicate anyway
 
+You can make the two buckets communicate by making them inherite from a parent
+and emiting, new variables to the parents with `$tcEmit`
+
+```vue
+<script>
+import VariablesBucket from './variables-buckets/VariablesBucket';
+
+</script>
+<template>
+  <div>
+    My App
+    <VariablesBucket>
+      <MyParentComponent>
+        <VariablesBucket>
+          <MyChildComponent1 />
+        </VariablesBucket>
+        <VariablesBucket>
+          <MyChildComponent2 />
+        </VariablesBucket>
+      </MyParentComponent>
+    </VariablesBucket>
+  <div>
+</template>
+```
+
+In this example, there are 3 variables buckets. The first one wraps `MyParentComponent` and the others wraps 2 child components `MyChildComponent1`.
+
+As precised in the section "Variables scoped", `MyChildComponent1` and `MyChildComponent2`
+
+In `MyChildComponent1`:
+```js
+// mounted method of MyChildComponent1:
+mounted(){
+  console.log(this.$tcVariables)
+  // > {}
+  this.$tcEmit({ c(){ this.a + ' from MyChildComponent1' } })
+  console.log(this.$tcVariables)
+  // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent1'}
+}
+```
+
+**`a` and `b` variables are inherited in `MyChildComponent2`:**
+
+```js
+// mounted method of MyChildComponent:
+mounted(){
+  console.log(this.$tcVariables)
+  // > { a: 'Hello', b: 'Hello from MyParentComponent'}
+  this.$tcSet({ c(){ this.a + ' from MyChildComponent' } })
+  console.log(this.$tcVariables)
+  // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent'}
+}
+```

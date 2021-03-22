@@ -54,12 +54,18 @@ export default defineComponent({
     return {
       $tcVariables: this.tcVariables,
       $tcSet: this.computeTcVariables,
+      $tcEmit: this.$tcSet // <-- tcSet of the parent !
     }
   },
   inject: {
     $tcVariables: {
       default: {} as Variables,
     },
+    $tcSet:{
+      default: () => {
+        console.log('plop')
+      }
+    }
   },
   render(): VNode {
     return this.$slots.default![0]
