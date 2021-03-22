@@ -47,17 +47,17 @@ export default defineComponent({
     },
   },
   methods: {
-    computeTcVariables(args: Record<string, any> = {}){
-      const allArgs = { ...this.parentTcVariables, ...this.definitions, ...args}
+    computeTcVariables(newVars: Record<string, any> = {}){
+      const allVars = { ...this.parentTcVariables, ...this.definitions, ...newVars}
       
       // Note that `definitions` does not need to be reactive, so do not use Vue.set
-      this.definitions = {...this.definitions, ...args};
+      this.definitions = {...this.definitions, ...newVars};
       
       /** In the following "for loop" we set all variables as getter of the `temp` object
        * in order to handle variables dependencies
        */
       const temp: Record<string, any> = {}
-      for(const [k, v] of Object.entries(allArgs)){
+      for(const [k, v] of Object.entries(allVars)){
         // k = variable name
         // v = variable definition
         Object.defineProperty(
@@ -69,7 +69,7 @@ export default defineComponent({
       /** In the following "for loop", we get from the `temp` object all variables,
        * and Vue.set them into the `tcVariables` data.
        */
-      for(const k of Object.keys(allArgs)){
+      for(const k of Object.keys(allVars)){
         try {
           // QUESTION: Is the variables asynchronous ?
           if(['Promise', 'AsyncFunction'].includes(temp[k].constructor.name)){
