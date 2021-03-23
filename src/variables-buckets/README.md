@@ -32,7 +32,7 @@ import VariablesBucket from './variables-buckets/VariablesBucket';
 </template>
 ```
 
-In the example above, `MyComponent1` is provided by the object
+In the example above, `MyComponent` is provided by the object
 `$tcVariables` and the functions `$tcSet`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
 
 ```js
