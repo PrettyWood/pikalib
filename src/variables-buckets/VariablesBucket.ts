@@ -6,7 +6,7 @@
  *
  * All components under `VariablesBucket` can inject these 3 objects and use it.
  * cf. https://vuejs.org/v2/api/#provide-inject
- * 
+ *
  * `VariablesBucket` himself injects them to make the provided `$tcVariables`
  * inherit from all buckets above him !
  *
@@ -49,10 +49,10 @@ export default defineComponent({
   methods: {
     computeTcVariables(newVars: Record<string, any> = {}){
       const allVars = { ...this.parentTcVariables, ...this.definitions, ...newVars}
-      
+
       // Note that `definitions` does not need to be reactive, so do not use Vue.set
       this.definitions = {...this.definitions, ...newVars};
-      
+
       /** In the following "for loop" we set all variables as getter of the `temp` object
        * in order to handle variables dependencies
        */
@@ -65,7 +65,7 @@ export default defineComponent({
           k, { get: v instanceof Function ? v.bind(temp) : () => v} // if the definition is not a function, create one which return the value
         )
       }
-      
+
       /** In the following "for loop", we get from the `temp` object all variables,
        * and Vue.set them into the `tcVariables` data.
        */
@@ -91,7 +91,7 @@ export default defineComponent({
     }
   },
   watch: {
-    parentTcVariables: { // If parent buckets update the 
+    parentTcVariables: { // If parent buckets update the
       handler(){
         this.computeTcVariables();
       },
@@ -103,10 +103,10 @@ export default defineComponent({
     return {
       $tcVariables: this.tcVariables, // Provide `tcVariables` to the children components
       $tcSet: this.computeTcVariables,
-      $tcParent: { 
+      $tcParent: {
         $tcVariables: this.$tcVariables,
-        $tcSet: this.$tcSet, 
-        parent: this.$tcParent, 
+        $tcSet: this.$tcSet,
+        $tcParent: this.$tcParent,
       } // Provide the `$tcSet` function of the `VariablesBucket` above
     }
   },
