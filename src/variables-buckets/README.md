@@ -33,7 +33,7 @@ import VariablesBucket from './variables-buckets/VariablesBucket';
 ```
 
 In the example above, `MyComponent1` is provided by the object
-`$tcVariables` and the functions `$tcSet` and `$tcEmit`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
+`$tcVariables` and the functions `$tcSet`. `$tcSet` function allows you to set variable definitions in `$tcVariables`:
 
 ```js
 // in `MyComponent` scripts
@@ -42,7 +42,7 @@ console.log(this.$tcVariables)
 // > { a:  'Hello', b: 'Hello world' }
 ```
 
-`$tcEmit` is the `$tcSet` function of the parent buckets. This allows you to set variables of a bucket from it's child. Note that you cannot set from a grand-child.
+`$tcParent` is an object containing the `$tcSet` and `$tcVariables` of the parent buckets. This allows you to set variables of a bucket from it's child. Note that you cannot set from a grand-child.
 
 - **These variables can be computed of each other, setting functions.**
 - **`$tcVariables` is reactive.**
@@ -99,7 +99,7 @@ mounted(){
 Note that, variable `c` will not be available from the `MyParentComponent`.
 
 If you need to set a variable `d` from the `MyParentComponent`, you should use
-`$tcEmit`:
+`$tcParent`:
 
 ```js
 // mounted method of MyChildComponent:
@@ -107,7 +107,7 @@ mounted(){
   console.log(this.$tcVariables)
   // >{ a: 'Hello', b: 'Hello from MyParentComponent'}
   this.$tcSet({ c(){ this.a + ' from MyChildComponent' } })
-  this.$tcEmit({ d(){ 'Hello from MyParentComponent' } })
+  this.$tcParent.$tcSet({ d(){ 'Hello from MyParentComponent' } })
   console.log(this.$tcVariables)
   // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent', d: 'Hello from MyParentComponent'}
 }
@@ -166,7 +166,7 @@ mounted(){
 ### Making them communicate anyway
 
 You can make the two buckets communicate by making them inherit from a parent
-and emitting, new variables to the parents with `$tcEmit`
+and emitting, new variables to the parents with `$tcParent`
 
 ```vue
 <script>
@@ -200,7 +200,7 @@ In `MyChildComponent1`:
 mounted(){
   console.log(this.$tcVariables)
   // > {}
-  this.$tcEmit({ c(){ this.a + ' from MyChildComponent1' } })
+  this.$tcParent.$tcSet({ c(){ this.a + ' from MyChildComponent1' } })
   console.log(this.$tcVariables)
   // > { a: 'Hello', b: 'Hello from MyParentComponent', c: 'Hello from MyChildComponent1'}
 }

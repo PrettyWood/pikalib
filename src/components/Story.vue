@@ -4,7 +4,7 @@ import { defineComponent } from "@vue/composition-api"
 export default defineComponent({
   name: 'Story',
   props: ['id'],
-  inject: ['$tcVariables', '$tcSet', '$tcEmit'],
+  inject: ['$tcVariables', '$tcSet', '$tcParent'],
   // :poop:"trick to force ts to detect the property `$tcVariables`
   computed: {
     $tcVariables(): any {
@@ -13,8 +13,8 @@ export default defineComponent({
     $tcSet(): any {
       return this.$tcSet
     },
-    $tcEmit(): any{
-      return this.$tcEmit
+    $tcParent(): any{
+      return this.$tcParent
     }
   },
   mounted(){
@@ -61,8 +61,8 @@ export default defineComponent({
 
     <span 
       :class="{ hovered: $tcVariables.hovered }" 
-      @mouseover="$tcEmit({'hovered': true})" 
-      @mouseout="$tcEmit({'hovered': false})">
+      @mouseover="$tcParent.$tcSet({'hovered': true})" 
+      @mouseout="$tcParent.$tcSet({'hovered': false})">
       Hover me ! 
     </span>
     <br>

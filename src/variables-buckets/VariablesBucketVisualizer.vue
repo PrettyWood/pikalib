@@ -12,7 +12,7 @@ import { defineComponent } from "@vue/composition-api"
 
 export default defineComponent({
   name: 'VariablesBucketVisualizer',
-  inject: ['$tcVariables', '$tcSet', '$tcEmit'],
+  inject: ['$tcVariables', '$tcSet', '$tcParent'],
   data():{varName: string; newVarDef: string; } {
     return {varName: '', newVarDef: ''}
   },

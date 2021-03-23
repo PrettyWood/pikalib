@@ -2,7 +2,7 @@
  * `VariablesBucket` is a render-less component which provides to all its children:
  *   - `$tcVariables`: an object mapping: key = variable name, value = variable value
  *   - `$tcSet`: a function to create / update in the `$tcVariables` object
- *   - `$tcEmit`: same function than `$tcSet` but for the parent variable bucket.
+ *   - `$tcParent`: an object containing same function than `$tcSet` but for the parent variable bucket.
  *
  * All components under `VariablesBucket` can inject these 3 objects and use it.
  * cf. https://vuejs.org/v2/api/#provide-inject
@@ -103,7 +103,11 @@ export default defineComponent({
     return {
       $tcVariables: this.tcVariables, // Provide `tcVariables` to the children components
       $tcSet: this.computeTcVariables,
-      $tcEmit: this.$tcSet // Provide the `$tcSet` function of the `VariablesBucket` above
+      $tcParent: { 
+        $tcVariables: this.$tcVariables,
+        $tcSet: this.$tcSet, 
+        parent: this.$tcParent, 
+      } // Provide the `$tcSet` function of the `VariablesBucket` above
     }
   },
   inject: {
@@ -112,6 +116,9 @@ export default defineComponent({
     },
     $tcSet: { // <-- This comes from the `VariablesBucket` above
       default: () => {}
+    },
+    $tcParent: {
+      default: {}
     }
   },
   render(): VNode {
