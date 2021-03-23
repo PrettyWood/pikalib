@@ -14,14 +14,14 @@ export default defineComponent({
 <template>
   <div>
     <h1>Main app</h1>
-    <VariablesBucket>
+    <VariablesBucket name="instance">
       <Instance :name="'renault'">
-        <VariablesBucket>
+        <VariablesBucket name="smallApp">
           <SmallApp :name="'vente pr'">
-            <VariablesBucket>
+            <VariablesBucket name='story'>
               <Story :id="332020"/>
             </VariablesBucket>
-            <VariablesBucket>
+            <VariablesBucket name="story">
               <Story :id="2199"/>
             </VariablesBucket>
           </SmallApp>

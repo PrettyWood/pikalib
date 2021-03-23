@@ -25,6 +25,12 @@ import Vue, { VNode } from "vue";
 
 export default defineComponent({
   name: 'VariablesBucket',
+  props: {
+    name: {
+      type: String, 
+      required: true
+    }
+  }, 
   data(): {
     /** `tcVariables` is the object provided to the children components.
      * It MUST be a Vue data and it MUST be updated using `Vue.set` to be reactive.
@@ -72,9 +78,7 @@ export default defineComponent({
       for(const k of Object.keys(allVars)){
         try {
           // QUESTION: Is the variables asynchronous ?
-          if(['Promise', 'AsyncFunction'].includes(temp[k].constructor.name)){
-            // YES: Set 'loading...' as value
-            Vue.set(this.tcVariables, k, 'loading...');
+          if(['Promise', 'AsyncFunction'].includes(temp[k]?.constructor.name)){
             // We do not want to make not asynchronous variables await, so we use the `then` method
             temp[k].then((res: any)=>{
               // And when it is finished, set the result
@@ -107,7 +111,15 @@ export default defineComponent({
         $tcVariables: this.$tcVariables,
         $tcSet: this.$tcSet,
         $tcParent: this.$tcParent,
-      } // Provide the `$tcSet` function of the `VariablesBucket` above
+      }, // Provide the `$tcSet` function of the `VariablesBucket` above
+      $tcScopes: {
+        ...this.$tcScopes, 
+        [this.name]: {
+          $tcVariables: this.tcVariables,
+          $tcSet: this.computeTcVariables,
+          $tcParent: this.$tcParent,
+        }
+      } 
     }
   },
   inject: {
@@ -118,6 +130,9 @@ export default defineComponent({
       default: () => {}
     },
     $tcParent: {
+      default: {}
+    }, 
+    $tcScopes: {
       default: {}
     }
   },
